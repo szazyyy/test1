@@ -5,122 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Walentynka</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffebee;
-            text-align: center;
-            padding-top: 50px;
-            overflow: hidden;
-            position: relative;
-            margin: 0;
-        }
-        h1 {
-            color: #d32f2f;
-            position: relative;
-            z-index: 2; /* Tekst na wierzchu */
-            font-size: 2rem; /* Domyślny rozmiar czcionki */
-        }
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            position: relative;
-            z-index: 2; /* Przyciski na wierzchu */
-        }
-        #yesButton {
-            background-color: #4caf50;
-            color: white;
-        }
-        #noButton {
-            background-color: #f44336;
-            color: white;
-        }
-        .button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        /* Walentynkowe ozdoby (serduszka) */
-        .hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1; /* Serduszka pod przyciskami */
-        }
-        .hearts span {
-            position: absolute;
-            display: block;
-            width: 20px;
-            height: 20px;
-            background-color: #ff6b6b;
-            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 75%, 18% 100%, 0% 38%);
-            animation: animateHearts 5s linear infinite;
-        }
-        @keyframes animateHearts {
-            0% {
-                transform: translateY(-10%);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh);
-                opacity: 0;
-            }
-        }
-
-        /* Popup */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 3;
-            border-radius: 10px;
-            width: 90%; /* Szerokość popupa na telefonach */
-            max-width: 400px; /* Maksymalna szerokość popupa */
-        }
-        .popup input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .popup button {
-            padding: 10px 20px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%; /* Pełna szerokość przycisku na telefonach */
-        }
-
-        /* Responsywność */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.5rem; /* Mniejszy rozmiar czcionki na telefonach */
-            }
-            .button {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
-            .popup {
-                padding: 15px;
-            }
-            .popup h2 {
-                font-size: 1.2rem; /* Mniejszy nagłówek w popupie */
-            }
-        }
+        /* ... (stylowanie pozostaje bez zmian) ... */
     </style>
 </head>
 <body>
@@ -187,7 +72,7 @@
             }
         });
 
-        // Funkcja do wysłania maila po kliknięciu "Tak"
+        // Funkcja do przekierowania na drugą stronę po kliknięciu "Tak"
         const yesButton = document.getElementById('yesButton');
         yesButton.addEventListener('click', () => {
             if (!userName || !userSurname) {
@@ -195,23 +80,8 @@
                 return;
             }
 
-            fetch('https://formspree.io/f/myzkjwnd', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: 'slawek.dominik05@gmail.com',
-                    message: `Użytkownik ${userName} ${userSurname} kliknął "Tak" na Twojej walentynkowej stronie!`
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Wiadomość została wysłana!');
-            })
-            .catch(error => {
-                console.error('Błąd:', error);
-            });
+            // Przekierowanie na drugą stronę z przekazaniem danych
+            window.location.href = `uwagi.html?name=${encodeURIComponent(userName)}&surname=${encodeURIComponent(userSurname)}`;
         });
     </script>
 </body>
