@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walentynka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffebee;
+            text-align: center;
+            padding-top: 50px;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+        }
+        h1 {
+            color: #d32f2f;
+            position: relative;
+            z-index: 2; /* Tekst na wierzchu */
+            font-size: 2rem; /* Domyślny rozmiar czcionki */
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            position: relative;
+            z-index: 2; /* Przyciski na wierzchu */
+        }
+        #yesButton {
+            background-color: #4caf50;
+            color: white;
+        }
+        #noButton {
+            background-color: #f44336;
+            color: white;
+        }
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Walentynkowe ozdoby (serduszka) */
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1; /* Serduszka pod przyciskami */
+        }
+        .hearts span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b6b;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 75%, 18% 100%, 0% 38%);
+            animation: animateHearts 5s linear infinite;
+        }
+        @keyframes animateHearts {
+            0% {
+                transform: translateY(-10%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
+
+        /* Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+            border-radius: 10px;
+            width: 90%; /* Szerokość popupa na telefonach */
+            max-width: 400px; /* Maksymalna szerokość popupa */
+        }
+        .popup input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .popup button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* Pełna szerokość przycisku na telefonach */
+        }
+
+        /* Responsywność */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem; /* Mniejszy rozmiar czcionki na telefonach */
+            }
+            .button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            .popup {
+                padding: 15px;
+            }
+            .popup h2 {
+                font-size: 1.2rem; /* Mniejszy nagłówek w popupie */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Popup -->
+    <div class="popup" id="popup">
+        <h2>Wprowadź swoje dane</h2>
+        <input type="text" id="name" placeholder="Imię" required>
+        <input type="text" id="surname" placeholder="Nazwisko" required>
+        <button onclick="closePopup()">Zapisz</button>
+    </div>
+
+    <h1>Czy zostaniesz moją walentynką?</h1>
+    <button id="yesButton" class="button" disabled>Tak</button>
+    <button id="noButton" class="button" disabled>Nie</button>
+
+    <!-- Walentynkowe ozdoby -->
+    <div class="hearts">
+        <!-- Generujemy serduszka -->
+        <span style="left: 10%; animation-delay: 0s;"></span>
+        <span style="left: 20%; animation-delay: 1s;"></span>
+        <span style="left: 30%; animation-delay: 2s;"></span>
+        <span style="left: 40%; animation-delay: 3s;"></span>
+        <span style="left: 50%; animation-delay: 4s;"></span>
+        <span style="left: 60%; animation-delay: 5s;"></span>
+        <span style="left: 70%; animation-delay: 6s;"></span>
+        <span style="left: 80%; animation-delay: 7s;"></span>
+        <span style="left: 90%; animation-delay: 8s;"></span>
+    </div>
+
+    <script>
+        // Zmienne do przechowywania danych użytkownika
+        let userName = '';
+        let userSurname = '';
+
+        // Pokazanie popupa po załadowaniu strony
+        window.onload = () => {
+            document.getElementById('popup').style.display = 'block';
+        };
+
+        // Funkcja do zamknięcia popupa i zapisania danych
+        function closePopup() {
+            userName = document.getElementById('name').value;
+            userSurname = document.getElementById('surname').value;
+
+            if (userName && userSurname) {
+                document.getElementById('popup').style.display = 'none';
+                // Odblokowanie przycisków po wprowadzeniu danych
+                document.getElementById('yesButton').disabled = false;
+                document.getElementById('noButton').disabled = false;
+            } else {
+                alert('Proszę wprowadzić imię i nazwisko!');
+            }
+        }
+
+        // Funkcja do przesuwania przycisku "Nie"
+        const noButton = document.getElementById('noButton');
+        noButton.addEventListener('mouseover', () => {
+            if (!noButton.disabled) { // Tylko jeśli przycisk jest aktywny
+                const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+                const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+                noButton.style.position = 'absolute';
+                noButton.style.left = `${x}px`;
+                noButton.style.top = `${y}px`;
+            }
+        });
+
+        // Funkcja do wysłania maila po kliknięciu "Tak"
+        const yesButton = document.getElementById('yesButton');
+        yesButton.addEventListener('click', () => {
+            if (!userName || !userSurname) {
+                alert('Proszę najpierw wprowadzić imię i nazwisko!');
+                return;
+            }
+
+            fetch('https://formspree.io/f/myzkjwnd', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: 'slawek.dominik05@gmail.com',
+                    message: `Użytkownik ${userName} ${userSurname} kliknął "Tak" na Twojej walentynkowej stronie!`
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Wiadomość została wysłana!');
+            })
+            .catch(error => {
+                console.error('Błąd:', error);
+            });
+        });
+    </script>
+</body>
+</html>
