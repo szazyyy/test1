@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cenne uwagi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffebee;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #d32f2f;
+        }
+        textarea {
+            width: 80%;
+            max-width: 500px;
+            height: 150px;
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cenne uwagi</h1>
+    <textarea id="uwagi" placeholder="Wpisz swoje uwagi..."></textarea>
+    <br>
+    <button onclick="wyslijMaila()">Wyślij</button>
+
+    <script>
+        // Pobierz dane użytkownika z URL
+        const params = new URLSearchParams(window.location.search);
+        const userName = decodeURIComponent(params.get('name'));
+        const userSurname = decodeURIComponent(params.get('surname'));
+
+        // Funkcja do wysyłania maila
+        function wyslijMaila() {
+            const uwagi = document.getElementById('uwagi').value;
+
+            if (!uwagi) {
+                alert('Proszę wpisać uwagi!');
+                return;
+            }
+
+            // Wysyłanie maila przez Formspree
+            fetch('https://formspree.io/f/mvojzqzv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: 'slawek.dominik05@gmail.com',
+                    message: `Użytkownik ${userName} ${userSurname} przesłał następujące uwagi:\n\n${uwagi}`
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Wiadomość została wysłana! Dziękujemy za uwagi.');
+            })
+            .catch(error => {
+                console.error('Błąd:', error);
+                alert('Wystąpił błąd podczas wysyłania wiadomości.');
+            });
+        }
+    </script>
+</body>
+</html>
