@@ -21,6 +21,7 @@
             font-size: 2.5rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            display: none; /* Ukryj na początku */
         }
 
         /* Przyciski */
@@ -35,6 +36,7 @@
             z-index: 2;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; /* Ukryj na początku */
         }
 
         #yesButton {
@@ -97,7 +99,7 @@
 
         /* Popup */
         .popup {
-            display: none;
+            display: block; /* Pokazuj popup na początku */
             position: fixed;
             top: 50%;
             left: 50%;
@@ -173,9 +175,9 @@
         <button onclick="closePopup()">Zapisz</button>
     </div>
 
-    <h1>Czy zostaniesz moją walentynką?</h1>
-    <button id="yesButton" class="button" disabled>Tak</button>
-    <button id="noButton" class="button" disabled>Nie</button>
+    <h1 id="question">Czy zostaniesz moją walentynką?</h1>
+    <button id="yesButton" class="button">Tak</button>
+    <button id="noButton" class="button">Nie</button>
 
     <!-- Walentynkowe ozdoby -->
     <div class="hearts">
@@ -207,10 +209,12 @@
             userSurname = document.getElementById('surname').value;
 
             if (userName && userSurname) {
+                // Ukryj popup
                 document.getElementById('popup').style.display = 'none';
-                // Odblokowanie przycisków po wprowadzeniu danych
-                document.getElementById('yesButton').disabled = false;
-                document.getElementById('noButton').disabled = false;
+                // Pokaż pytanie i przyciski
+                document.getElementById('question').style.display = 'block';
+                document.getElementById('yesButton').style.display = 'inline-block';
+                document.getElementById('noButton').style.display = 'inline-block';
             } else {
                 alert('Proszę wprowadzić imię i nazwisko!');
             }
