@@ -8,12 +8,20 @@
         /* Ogólne style */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #ffebee; /* Delikatny róż */
+            background-image: url('https://i.imgur.com/3QZQZ9m.jpg'); /* Zdjęcie piwonii */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             text-align: center;
             padding-top: 50px;
             overflow: hidden;
             position: relative;
             margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         h1 {
@@ -22,6 +30,9 @@
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             display: none; /* Ukryj na początku */
+            background-color: rgba(255, 255, 255, 0.8); /* Lekko białe tło dla tekstu */
+            padding: 10px 20px;
+            border-radius: 10px;
         }
 
         /* Przyciski */
@@ -37,6 +48,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: none; /* Ukryj na początku */
+            background-color: rgba(255, 255, 255, 0.9); /* Lekko białe tło dla przycisków */
         }
 
         #yesButton {
