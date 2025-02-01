@@ -8,10 +8,7 @@
         /* Ogólne style */
         body {
             font-family: 'Arial', sans-serif;
-            background-image: url('https://i.imgur.com/3QZQZ9m.jpg'); /* Zdjęcie piwonii */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: #ffebee; /* Delikatny róż */
             text-align: center;
             padding-top: 50px;
             overflow: hidden;
@@ -75,6 +72,23 @@
             background-color: #ccc;
             cursor: not-allowed;
             transform: none;
+        }
+
+        /* Zdjęcia piwonii */
+        .piwonia {
+            position: absolute;
+            width: 100px; /* Dostosuj rozmiar */
+            height: auto;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         /* Walentynkowe ozdoby (serduszka) */
@@ -190,6 +204,12 @@
     <h1 id="question">Czy zostaniesz moją walentynką?</h1>
     <button id="yesButton" class="button">Tak</button>
     <button id="noButton" class="button">Nie</button>
+
+    <!-- Zdjęcia piwonii -->
+    <img src="https://i.imgur.com/3QZQZ9m.jpg" class="piwonia" style="top: 10%; left: 5%;">
+    <img src="https://i.imgur.com/4QZQZ9n.jpg" class="piwonia" style="top: 20%; left: 80%;">
+    <img src="https://i.imgur.com/5QZQZ9o.jpg" class="piwonia" style="top: 50%; left: 20%;">
+    <img src="https://i.imgur.com/6QZQZ9p.jpg" class="piwonia" style="top: 70%; left: 70%;">
 
     <!-- Walentynkowe ozdoby -->
     <div class="hearts">
